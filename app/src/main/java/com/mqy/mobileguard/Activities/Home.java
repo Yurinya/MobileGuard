@@ -21,7 +21,9 @@ import com.mqy.mobileguard.Utils.spTools;
 
 public class Home extends AppCompatActivity {
     private GridView gv_menu;
-    private int icons[] = {R.drawable.safe, R.drawable.callmsgsafe,R.drawable.taskmanager, R.drawable.netmanager,R.drawable.trojan,R.drawable.sysoptimize,R.drawable.atools, R.drawable.settings};
+    private int icons[] = {R.drawable.safe, R.drawable.callmsgsafe,R.drawable.app,
+            R.drawable.taskmanager, R.drawable.netmanager,R.drawable.trojan,
+            R.drawable.sysoptimize,R.drawable.atools, R.drawable.settings};
     private String names[]={"手机防盗","通讯卫士","软件管家","进程管理","流量统计","病毒查杀","缓存清理","高级工具","设置中心"};
     private MyAdapter adapter;
     private AlertDialog alertDialog_password;
@@ -42,6 +44,7 @@ public class Home extends AppCompatActivity {
                     //shoujifangdao
                     case 0:
                         passWordSettingDialog();
+                        break;
                 }
             }
         });
@@ -110,7 +113,7 @@ public class Home extends AppCompatActivity {
             TextView tv_name = (TextView) view.findViewById(R.id.tv_item_home_gv_name);
             iv_icon.setImageResource(icons[position]);
             tv_name.setText(names[position]);
-            return null;
+            return view;
         }
 
         @Override

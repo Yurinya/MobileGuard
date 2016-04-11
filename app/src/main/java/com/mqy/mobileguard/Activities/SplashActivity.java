@@ -20,7 +20,22 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.splash);
         mRelativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         initAnimation();
-        SystemClock.sleep(3000);
+        waiting();
+
+    }
+
+    private void waiting() {
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                SystemClock.sleep(3000);
+                toHome();
+            }
+        }.start();
+    }
+
+    private void toHome() {
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }

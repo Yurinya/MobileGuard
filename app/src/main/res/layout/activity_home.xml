@@ -10,14 +10,15 @@
         style="@style/tv_title"
         android:text="Home"
         android:background="#ee3075e5"/>
-    <TextView
+    <com.mqy.mobileguard.View.MyTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
         android:singleLine="true"
-        android:text="asfasdfjwefoqwejifjasdjfjjoiwqwejfadslkjvapiewqfpiqwqwiteuqtdasf"/>
+        android:text="asfasdfjwefoqwejifjasdfffffffffffffffffffffffffjfjjoiwqwejfadslkjvapiewqfpiqwqwiteuqtdasf"/>
     <GridView
         android:id="@+id/gv_home_menu"
+        android:verticalSpacing="5dp"
         android:numColumns="3"
         android:listSelector="@drawable/gv_list_selector"
         android:layout_width="match_parent"
