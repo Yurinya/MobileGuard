@@ -15,4 +15,13 @@ public class spTools {
         SharedPreferences  sharedPreferences = context.getSharedPreferences(MyConstants.SPFILE,Context.MODE_PRIVATE);
         return sharedPreferences.getString(key,default_value);
     }
+    public static void putBoolean(Context context,String key,Boolean value){
+        SharedPreferences sp = context.getSharedPreferences(MyConstants.SPFILE, Context.MODE_PRIVATE);
+        sp.edit().putBoolean(key, value).commit();//保存数据
+    }
+
+    public static boolean getBoolean(Context context,String key,boolean defValue){
+        SharedPreferences sp = context.getSharedPreferences(MyConstants.SPFILE, Context.MODE_PRIVATE);
+        return sp.getBoolean(key, defValue);
+    }
 }

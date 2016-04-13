@@ -1,5 +1,6 @@
 package com.mqy.mobileguard.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mqy.mobileguard.R;
+import com.mqy.mobileguard.Utils.MD5Utils;
 import com.mqy.mobileguard.Utils.MyConstants;
 import com.mqy.mobileguard.Utils.spTools;
 
-public class Home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     private GridView gv_menu;
     private int icons[] = {R.drawable.safe, R.drawable.callmsgsafe,R.drawable.app,
             R.drawable.taskmanager, R.drawable.netmanager,R.drawable.trojan,
@@ -41,9 +43,14 @@ public class Home extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    //shoujifangdao
+                    //手机防盗
                     case 0:
-                        passWordSettingDialog();
+                        if(TextUtils.isEmpty(spTools.getString(getApplicationContext(), MyConstants.PASSWORD,""))){
+                            passwordSettingDialog();
+                        }
+                        else {
+                            passwordCheckingDialog();
+                        }
                         break;
                 }
             }
@@ -51,7 +58,44 @@ public class Home extends AppCompatActivity {
 
     }
 
-    private void passWordSettingDialog() {
+    private void passwordCheckingDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(getApplicationContext(), R.layout.dialog_checking_password, null);
+        final EditText et_password_enter = (EditText) view.findViewById(R.id.tv_dialog_set_password_enter);
+        Button bt_set_password_yes = (Button) view.findViewById(R.id.bt_dialog_set_password_yes);
+        Button bt_set_password_no = (Button) view.findViewById(R.id.bt_dialog_set_password_no);
+        builder.setView(view);
+        alertDialog_password = builder.create();
+        alertDialog_password.show();
+        bt_set_password_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String password_enter = et_password_enter.getText().toString();
+                String MD5_enter_password = MD5Utils.md5(MD5Utils.md5(password_enter));
+                if(TextUtils.isEmpty(password_enter)){
+                    Toast.makeText(getApplicationContext(),"Don`t be empty",Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(!MD5_enter_password.equals(spTools.getString(getApplicationContext(),MyConstants.PASSWORD,""))){
+                    Toast.makeText(getApplicationContext(), "WRONG",Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    //密码相同
+                    Intent intent = new Intent(HomeActivity.this,LostFindActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(),"SUCCESS",Toast.LENGTH_SHORT).show();
+                    alertDialog_password.dismiss();
+                }
+            }
+        });
+        bt_set_password_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog_password.dismiss();
+            }
+        });
+    }
+
+    private void passwordSettingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = View.inflate(getApplicationContext(), R.layout.dialog_set_password, null);
         final EditText et_password_one = (EditText) view.findViewById(R.id.tv_dialog_set_password_one);
@@ -73,7 +117,8 @@ public class Home extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Passwords arn`t same ",Toast.LENGTH_SHORT).show();
                     return;
                 }else{
-                    spTools.putString(getApplicationContext(), MyConstants.PASSWORD,password_one);
+                    String saved_password = MD5Utils.md5(MD5Utils.md5(password_one));
+                    spTools.putString(getApplicationContext(), MyConstants.PASSWORD,saved_password);
                     Toast.makeText(getApplicationContext(),"SUCCESS",Toast.LENGTH_SHORT).show();
                     alertDialog_password.dismiss();
                 }

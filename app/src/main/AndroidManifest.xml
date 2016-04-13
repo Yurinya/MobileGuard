@@ -7,20 +7,40 @@
         android:icon="@drawable/ic_luancher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/NoActionBarTheme">
         <activity
             android:name=".Activities.SplashActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Home"
-                  android:theme="@style/HomeTheme"
-            >
+        <activity
+            android:name=".Activities.HomeActivity"
+            android:theme="@style/NoActionBarTheme">
         </activity>
+        <activity
+            android:name=".Activities.LostFindActivity"
+            android:theme="@style/NoActionBarTheme">
+        </activity>
+        <activity android:name=".Activities.Set1Activity">
+        </activity>
+        <activity android:name=".Activities.Set2Activity">
+        </activity>
+        <activity android:name=".Activities.Set3Activity">
+        </activity>
+        <activity android:name=".Activities.Set4Activity">
+        </activity>
+        <activity android:name=".Activities.SetBaseActivity">
+        </activity>
+
+        <service
+            android:name=".Services.LostFindService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>

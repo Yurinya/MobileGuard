@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mqy.mobileguard.Activities.Home">
+    tools:context=".Activities.HomeActivity">
     <TextView
         style="@style/tv_title"
         android:text="Home"
